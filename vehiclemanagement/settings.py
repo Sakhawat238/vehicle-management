@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'adminsite',
     'adminsite.usermanagement',
+    'adminsite.vehicleconfiguration',
     'website',
     'website.landingpage'
 ]
