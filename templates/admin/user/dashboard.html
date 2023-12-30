@@ -1,0 +1,147 @@
+{% extends "admin/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+<style>
+  .big-card-div {
+    background-color: white;
+    padding: 10px;
+    border-radius: 3px;
+    border: none;
+    box-shadow: 0 0 0 1px rgb(20 20 31 / 5%), 0 1px 3px 0 rgb(20 20 31 / 15%);
+  }
+  .s-card-div {
+    width: 100%;
+    height: 115px;
+    border-radius: 3px;
+    color: white;
+    font-family: system-ui;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    backdrop-filter: brightness(1);
+    overflow: hidden;
+    text-align: center;
+  }
+  .s-bg-green {
+    background: #039f9f;
+  }
+  .s-bg-blue {
+    background:#1c83e2;
+  }
+  .s-bg-red {
+    background: #bb4708;
+  }
+  .s-bg-gray {
+    background: #787fa5;
+  }
+  .s-card-data {
+    font-size:25px;
+    font-weight:600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+  .s-card-label {
+    font-size: 12px;
+    letter-spacing:0.8px;
+    backdrop-filter: brightness(0.5);
+    padding: 8px 0px;
+  }
+</style>
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+{% include 'admin/layout/sidebar.html'%}
+<div class="page-wrapper">
+  <div class="right-wrapper">
+    <main class="main">
+      <div class="row mt-3">
+        <div class="col-sm-6 col-lg-3">
+          <div class="s-card-div s-bg-green mb-3">
+            <div class="s-card-data">110</div>
+            <div class="s-card-label">Total Vehicles</div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="s-card-div s-bg-blue mb-3">
+            <div class="s-card-data">34</div>
+            <div class="s-card-label">Total Rented Vehicles</div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="s-card-div s-bg-gray mb-3">
+              <div class="s-card-data">230</div>
+              <div class="s-card-label">Total Customers</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="s-card-div s-bg-red mb-3">
+            <div class="s-card-data">48,000 Tk</div>
+            <div class="s-card-label">Total Income this month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mx-0">
+        <div class="col-12 col-lg-6 col-xl-6 big-card-div mb-3">
+          <p style="font-size: 15px; font-weight: bold;"> Pending Requisition </p>
+          <div class="row mx-0" style="border: 1px solid lightgray;height: 40px; align-items: center; font-weight: bold;background-color: #f5f9fc">
+            <div class="col-3">Customer</div>
+            <div class="col-3">Vehicle</div>
+            <div class="col-2">Start</div>
+            <div class="col-2">End</div>
+            <div class="col-2" style="text-align: right;">Amount</div>
+          </div>
+          <div style="height: 250px;overflow-y: auto;">
+            {% for pp in pending_purchases %}
+            <div class="row mx-0" style="border: 1px solid lightgray;min-height: 35px;align-items: center;">
+              <div class="col-3"></div>
+              <div class="col-3"></div>
+              <div class="col-2"></div>
+              <div class="col-2"></div>
+              <div class="col-2" style="text-align: right;"></div>
+            </div>
+            {%endfor%}
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-6 big-card-div mb-3">
+          <p style="font-size: 15px; font-weight: bold;"> Recent Rents </p>
+          <div class="row mx-0" style="border: 1px solid lightgray;height: 40px; align-items: center; font-weight: bold;background-color: #f5f9fc">
+            <div class="col-3">Customer</div>
+            <div class="col-3">Vehicle</div>
+            <div class="col-2">Start</div>
+            <div class="col-2">End</div>
+            <div class="col-2" style="text-align: right;">Amount</div>
+          </div>
+          <div style="height: 250px;overflow-y: auto;">
+            {% for ps in pending_sales %}
+            <div class="row mx-0" style="border: 1px solid lightgray;min-height: 35px;align-items: center;">
+              <div class="col-3"></div>
+              <div class="col-3"></div>
+              <div class="col-2"></div>
+              <div class="col-2"></div>
+              <div class="col-2" style="text-align: right;"></div>
+            </div>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+{%endblock%}
+{%block js%}
+{%endblock%}

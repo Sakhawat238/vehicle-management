@@ -16,6 +16,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'adminsite',
+    'adminsite.usermanagement',
+    'website',
+    'website.landingpage'
 ]
 
 MIDDLEWARE = [
@@ -34,7 +38,7 @@ ROOT_URLCONF = 'vehiclemanagement.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [Path.joinpath(BASE_DIR, 'ZTemplates')],
+        'DIRS': [Path.joinpath(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,4 +110,4 @@ if DEBUG:
 
 ADMIN_LOGIN_URL = 'loginpage'
 VISITOR_LOGIN_URL = ''
-# AUTH_USER_MODEL = 'UserAuthentication.User'
+AUTH_USER_MODEL = 'usermanagement.User'

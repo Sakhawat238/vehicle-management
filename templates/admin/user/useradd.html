@@ -1,0 +1,97 @@
+{% extends "admin/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+{% include 'admin/layout/sidebar.html'%}
+<div class="page-wrapper">
+  <div class="right-wrapper">
+    <main class="main">
+        <div class="page_header">User Management / Add</div>
+        <form method="post" autocomplete="off">
+            {%csrf_token%}
+            <div class="row">
+              <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group row mx-0">
+                  <label for="firstname" class="col-12 col-md-4 col-lg-4 col-xl-4 col-form-label font-weight-bold">First Name :</label>
+                  <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control form-control-sm" id="firstname" name="firstname"  placeholder="Enter first name" required>
+                  </div>
+                </div>
+                <div class="form-group row mx-0">
+                  <label for="lastname" class="col-12 col-md-4 col-lg-4 col-xl-4 col-form-label font-weight-bold">Last Name :</label>
+                  <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control form-control-sm" id="lastname" name="lastname"  placeholder="Enter Last name" required>
+                  </div>
+                </div>
+                <div class="form-group row mx-0">
+                  <label for="username" class="col-12 col-md-4 col-lg-4 col-xl-4 col-form-label font-weight-bold">Username :</label>
+                  <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control form-control-sm" id="username" name="username"  placeholder="Enter user name" required>
+                  </div>
+                </div>
+                <div class="form-group row mx-0">
+                  <label for="email" class="col-12 col-md-4 col-lg-4 col-xl-4 col-form-label font-weight-bold">Email :</label>
+                  <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="email" class="form-control form-control-sm" id="email" name="email"  placeholder="Enter email address">
+                  </div>
+                </div>
+                <div class="form-group row mx-0">
+                  <label for="mobile" class="col-12 col-md-4 col-lg-4 col-xl-4 col-form-label font-weight-bold">Mobile :</label>
+                  <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                      <input type="text" class="form-control form-control-sm" id="mobile" name="mobile"  placeholder="Enter mobile number">
+                  </div>
+                </div>
+                <div class="form-group row mx-0">
+                  <label for="password" class="col-12 col-md-4 col-lg-4 col-xl-4 col-form-label font-weight-bold">Password :</label>
+                  <div class="col-12 col-md-7 col-lg-7 col-xl-7">
+                    <input type="password" class="form-control form-control-sm" id="password" name="password"  placeholder="Enter password" required>
+                  </div>
+                  <button type="button" onclick="toggleVisibility()" class="toggle-btn col-1">&#128065;</button>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center mt-2 mb-2">
+              <button type="submit" class="submit btn btn-sm btn-primary">
+                <i class="fa fa-dot-circle-o"></i> Submit
+              </button>
+              <div style="width:10px;"></div>
+              <button type="reset" class="reset btn btn-sm btn-danger">
+                <i class="fa fa-ban"></i> Reset
+              </button>
+              <div style="width:10px;"></div>
+              <button type="button" class="btn btn-sm btn-secondary" onclick="javascript:window.history.back();" >
+                <i class="fa fa-angle-left"></i> Back
+              </button>
+            </div>
+          </form>
+    </main>
+  </div>
+</div>
+
+{%endblock%}
+{%block js%}
+<script>
+function toggleVisibility() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
+{%endblock%}
