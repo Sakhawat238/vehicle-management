@@ -1,0 +1,56 @@
+{% extends "admin/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+{% include 'admin/layout/sidebar.html'%}
+<div class="page-wrapper">
+  <div class="right-wrapper">
+    <main class="main">
+        <div class="page_header">Vehicle Category / Edit</div>
+        <form method="post" autocomplete="off">
+            {%csrf_token%}
+            <div class="row">
+              <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group row mx-0">
+                  <label for="name" class="col-12 col-md-4 col-lg-4 col-xl-4 col-form-label font-weight-bold">Category Name :</label>
+                  <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control form-control-sm" id="name" name="name"  placeholder="Enter category name" required value="{{C.name}}">
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center mt-2 mb-2">
+                <button type="submit" class="submit btn btn-sm btn-primary">
+                    <i class="fa fa-dot-circle-o"></i> Submit
+                </button>
+                <div style="width:10px;"></div>
+                <button type="reset" class="reset btn btn-sm btn-danger">
+                    <i class="fa fa-ban"></i> Reset
+                </button>
+                <div style="width:10px;"></div>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="javascript:window.history.back();" >
+                    <i class="fa fa-angle-left"></i> Back
+                </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+
+{%endblock%}
+{%block js%}
+{%endblock%}

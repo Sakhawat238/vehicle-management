@@ -1,0 +1,67 @@
+{% extends "admin/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+{% include 'admin/layout/sidebar.html'%}
+<div class="page-wrapper">
+  <div class="right-wrapper">
+    <main class="main">
+        <div class="page_header">Vehcile Category</div>
+
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-outline-primary btn-sm" href="{%url 'categoryadd'%}">
+                <i class="fas fa-plus"></i> Add Category
+            </a>
+            <div style="width: 10px;"></div>
+            <a class="btn btn-outline-success btn-sm" href="{%url 'categorylist'%}">
+                <i class="fas fa-redo"></i> Reload
+            </a>
+        </div>
+
+        <div class="table-responsive-sm">
+            <table class="table table-striped table-bordered table-sm mt-2 bg-white">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {%for c in categories %}
+                    <tr>
+                        <td>{{c.name}}</td>
+                        <td style="display: flex; padding-bottom: 5px;">
+                            <a class="btn btn-sm btn-warning me-1" href="{%url 'categoryedit' c.id %}">
+                                <i class="far fa-edit"></i> Edit
+                            </a>
+                            <a class="btn btn-sm btn-danger me-1" href="{%url 'categorydelete' c.id %}">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                {%empty%}
+                    <tr class="odd"><td colspan="2" style="text-align: center;">No data available in table</td></tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </main>
+  </div>
+</div>
+{%endblock%}
+{%block js%}
+{%endblock%}
