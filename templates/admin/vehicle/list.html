@@ -20,14 +20,14 @@
 <div class="page-wrapper">
   <div class="right-wrapper">
     <main class="main">
-        <div class="page_header">Vehicle Category</div>
+        <div class="page_header">Vehicle</div>
 
         <div class="d-flex justify-content-center">
-            <a class="btn btn-outline-primary btn-sm" href="{%url 'categoryadd'%}">
-                <i class="fas fa-plus"></i> Add Category
+            <a class="btn btn-outline-primary btn-sm" href="{%url 'vehicleadd'%}">
+                <i class="fas fa-plus"></i> Add Vehicle
             </a>
             <div style="width: 10px;"></div>
-            <a class="btn btn-outline-success btn-sm" href="{%url 'categorylist'%}">
+            <a class="btn btn-outline-success btn-sm" href="{%url 'vehiclelist'%}">
                 <i class="fas fa-redo"></i> Reload
             </a>
         </div>
@@ -37,24 +37,37 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Driver</th>
+                        <th>Capacity</th>
+                        <th>Rate</th>
+                        <th>Picture</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                {%for c in categories %}
+                {%for v in vehicles %}
                     <tr>
-                        <td>{{c.name}}</td>
+                        <td>{{v.name}}</td>
+                        <td>{{v.description}}</td>
+                        <td>{{v.category.name}}</td>
+                        <td>{{v.driver.name}}</td>
+                        <td>{{v.capacity}} Persons</td>
+                        <td>{{v.hourly_rate}} Tk</td>
+                        <td>{%if v.thumbnail %}
+                            <img src="{{v.thumbnail.url}}" alt="vimage" width="100px" height="100px"> {%endif%}</td>
                         <td style="display: flex; padding-bottom: 5px;">
-                            <a class="btn btn-sm btn-warning me-1" href="{%url 'categoryedit' c.id %}">
+                            <a class="btn btn-sm btn-warning me-1" href="{%url 'vehicleedit' v.id %}">
                                 <i class="far fa-edit"></i> Edit
                             </a>
-                            <a class="btn btn-sm btn-danger me-1" href="{%url 'categorydelete' c.id %}">
+                            <a class="btn btn-sm btn-danger me-1" href="{%url 'vehicledelete' v.id %}">
                                 <i class="fas fa-trash"></i> Delete
                             </a>
                         </td>
                     </tr>
                 {%empty%}
-                    <tr class="odd"><td colspan="2" style="text-align: center;">No data available in table</td></tr>
+                    <tr class="odd"><td colspan="7" style="text-align: center;">No data available in table</td></tr>
                 {%endfor%}
                 </tbody>
             </table>
