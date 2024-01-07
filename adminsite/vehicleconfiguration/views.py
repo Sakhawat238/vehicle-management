@@ -97,6 +97,7 @@ def vehicleadd(request):
                 v_image = VehicleImage(vehicle_id=V.id, image=server_url)
                 v_image.save()
 
+        messages.success(request, f'Vehcile has been added successfully')
         return redirect("vehiclelist")
     else:
         context = {
@@ -108,11 +109,53 @@ def vehicleadd(request):
 @admin_access_required()
 def vehicleedit(request, id):
     V = Vehicle.objects.select_related('driver').get(id=id)
+    D = V.driver
     if request.method == "POST":
         r = request.POST
+
+        V.category_id = r.get('category')
+        V.name = r.get('name')
+        V.description = r.get('description')
+        V.capacity = r.get('capacity')
+        V.hourly_rate = r.get('rate')
+        V.save()
+
+        D.name = r.get('driver_name')
+        D.contact_info = r.get('driver_contact')
+        D.license_info = r.get('driver_license')
+        D.save()
+
+        ExistingImageToDelete = r.getlist('ExistingImage')
+        VehicleImage.objects.filter(id__in=ExistingImageToDelete).delete()
+        
+        for filename, file in request.FILES.items():
+            myfile = request.FILES[filename]
+            if filename == 'thumbnail':
+                folder_name = 'thumbnail'
+                myfile.name = change_file_name(myfile.name)
+                server_url = file_upload_server(myfile, folder_name, f'/{folder_name}/')
+                V.thumbnail = server_url
+                V.save()
+            else:
+                folder_name = 'image'
+                myfile.name = change_file_name(myfile.name)
+                server_url = file_upload_server(myfile, folder_name, f'/{folder_name}/')
+                v_image = VehicleImage(vehicle_id=V.id, image=server_url)
+                v_image.save()
+
+        messages.success(request, f'Vehcile has been updated successfully')
+        return redirect("vehiclelist")
+
     else:
+        VImgs = V.vehicleimage_set.all()
+        imglst = []
+        idx = 1
+        for img in VImgs:
+            imglst.append({'img': img, 'idx': img.id})
+            idx += 1
         context = {
             "V" : V,
+            "VImgs" : imglst,
             "categories" : Category.objects.all()
         }
         return render(request, 'admin/vehicle/edit.html', context)
