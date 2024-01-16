@@ -1,0 +1,41 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="shortcut icon" href="{%static '/favicon.png' %}" type="image/x-icon">
+<link rel="stylesheet" href="{%static 'website/css/style.min.css' %}">
+<link rel="stylesheet" href="{%static 'website/css/pikaday.css' %}">
+<link rel="stylesheet" href="{%static 'website/css/commonstyle.min.css' %}">
+<link rel="stylesheet" href="{%static 'website/css/toastr.min.css' %}">
+<link rel="stylesheet" href="{%static 'website/css/icons/font-awesome/css/fontawesome-all.min.css' %}">
+<script src="{%static 'website/js/jquery.min.js' %}"></script>
+<script src="{%static 'website/js/toastr.min.js' %}"></script>
+{%block title %}
+{%endblock %}
+{%block style%}
+{%endblock%}
+</head>
+<body>
+{%spaceless%}
+<div id="load_screen"><div class="spinner"></div></div>
+<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+{% include 'web/layout/navbar.html' %}
+{%block content%}
+{%endblock content%}
+</div>
+{%endspaceless%}
+{%block js%}
+{%endblock%}
+<script>
+window.addEventListener("load", function(){var loadScreen = document.getElementById("load_screen");document.body.removeChild(loadScreen);})
+$('form').submit(function(){$(this).find("button[type='submit']").prop('disabled',true);});
+</script>
+<script src="{%static 'website/js/sidebarmenu.js' %}"></script>
+<script src="{%static 'website/js/custom.min.js' %}"></script>
+<script src="{%static 'website/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{%static 'website/js/moment.min.js' %}"></script>
+<script src="{%static 'website/js/pikaday.js' %}"></script>
+</body>
+</html>
