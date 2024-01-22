@@ -1,8 +1,11 @@
 from django.shortcuts import render
-
+from adminsite.vehicleconfiguration.models import Category, Vehicle
 
 def landingpage(request):
-    context = {}
+    categories = Category.objects.prefetch_related('vehicle_set').order_by('name').all()
+    context = {
+        'cats' : categories
+    }
     return render(request, 'web/landingpage.html', context)
 
 
