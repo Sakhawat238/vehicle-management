@@ -1,0 +1,76 @@
+{% extends "web/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+<div>
+  <div>
+    <main class="main">
+        <div style="padding: 10px 40px;">
+            <h3>Terms and Conditions</h3>
+            <ol>
+                <li>
+                    Rental Agreement : By using the car rental services provided by us, 
+                    you agree to the terms and conditions outlined herein. 
+                    This agreement establishes the rights and responsibilities of both the customer and us.
+                </li>
+                <li>
+                    Rental Eligibility : To rent a vehicle from us, you must meet the following criteria:
+                    Possess a valid driver's license, Meet the minimum age requirement for the chosen vehicle category,
+                    Provide a valid credit card for payment.
+                </li>
+                <li>
+                    Booking and Reservation : All bookings are subject to vehicle availability.
+                    Reservations can be made online through our website or at our designated rental locations.
+                    Changes to reservations are subject to availability and may incur additional charges.
+                </li>
+                <li>
+                    Rental Duration: The rental period starts and ends as specified in your reservation.
+                    Extensions must be requested in advance and are subject to availability.
+                </li>
+                <li>
+                    Rental Rates and Payments : Rental rates are determined based on the vehicle category, duration, and additional services selected.
+                    Payment is accepted via credit card. A security deposit may be required.
+                    Additional charges, such as fuel fees, mileage fees, or late return fees, may apply.
+                </li>
+                <li>
+                    Cancellation and Refund Policy : Cancellations made within a specified period may be eligible for a refund, subject to our cancellation policy.
+                    No-shows and cancellations outside the specified period may incur charges.
+                </li>
+                <li>
+                    Maintenance and Repairs : Customers are responsible for reporting any mechanical issues promptly.
+                    We will cover the cost of repairs for mechanical issues resulting from normal wear and tear.
+                </li>
+                <li>
+                    Insurance : All rental vehicles come with basic insurance coverage.
+                    Additional insurance options are available for purchase to enhance coverage.
+                </li>
+                <li>
+                    Liability : We are not liable for personal property left in the rental vehicle.
+                    Customers are responsible for any traffic violations or fines incurred during the rental period.
+                </li>
+                <li>
+                    Governing Law : These terms and conditions are governed by the laws of Bangladesh.
+                </li>
+            </ol>
+        </div>
+    </main>
+  </div>
+</div>
+
+{%endblock%}
+{%block js%}
+{%endblock%}

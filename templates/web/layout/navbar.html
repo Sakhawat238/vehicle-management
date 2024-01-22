@@ -18,12 +18,18 @@
       </div>
     </div>
   </div>
-  <div>
-    <div>Home</div>
-    <div>Who we are</div>
+  <div style="display: flex;justify-content: center;gap: 20px;background: rgba(234, 237, 240, 0.8);padding: 10px 0px;">
+    <div style="padding: 10px;background: #ffdf00;margin: -10px 0px;">
+      <a href="{% url 'landingpage' %}" style="color: black;">Home</a>
+    </div>
+    <div>
+      <a href="{% url 'aboutpage' %}" style="color: black;">Who we are</a>
+    </div>
     <div>Rent a Vehicle</div>
     <div>Services</div>
-    <div>Terms & Conditions</div>
+    <div>
+      <a href="{% url 'termspage' %}" style="color: black;">Terms & Conditions</a>
+    </div>
     <div>Contact</div>
   </div>
 </header>

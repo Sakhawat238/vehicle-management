@@ -1,0 +1,54 @@
+{% extends "web/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+<div>
+  <div>
+    <main class="main">
+        <div style="padding: 10px 40px;">
+            <p style="font-size: 20px; font-weight: bold;">Who We Are</p>
+            <p>
+                Welcome to Rent-A-Car, your trusted partner in car rental services in the vibrant landscapes of Bangladesh. 
+                At Rent-A-Car, we believe in turning your journeys into unforgettable experiences by providing reliable, convenient, 
+                and affordable car rental solutions tailored to your needs.
+            </p>
+            <p style="font-size: 20px; font-weight: bold;">Our Vision</p>
+            <p>
+                Our vision is to redefine the way you travel in Bangladesh, offering a seamless and enjoyable experience that 
+                goes beyond just renting a car. We aspire to be the leading car rental service that understands and anticipates 
+                your requirements, ensuring your travel plans are stress-free and filled with moments to cherish.
+            </p>
+            <p style="font-size: 20px; font-weight: bold;">What Sets Us Apart</p>
+            <ol>
+                <li>Extensive Fleet: Choose from a diverse fleet of well-maintained vehicles, ranging from compact cars for urban adventures to spacious SUVs for family getaways.</li>
+                <li>Customer-Centric Approach: We prioritize your satisfaction by putting your needs at the forefront. Our team is dedicated to delivering exceptional service, ensuring your journey is smooth from start to finish.</li>
+                <li>Transparent Pricing: No hidden fees or surprises. With clear and transparent pricing, you can trust that the rate you see is the rate you pay.</li>
+                <li>Accessibility: We have a widespread presence, making it convenient for you to pick up and drop off your rental vehicle at various locations across Bangladesh.</li>
+            </ol>
+            <p>
+                Join Us on the Road. Embark on your journey with confidence, knowing that we are here to support your travel 
+                aspirations. Whether you're exploring the bustling streets of Dhaka or venturing into the scenic landscapes of Bangladesh, we are your travel companion every step of the way.
+                Discover the joy of hassle-free car rentals with us. Your adventure begins here.
+            </p>
+        </div>
+    </main>
+  </div>
+</div>
+
+{%endblock%}
+{%block js%}
+{%endblock%}
