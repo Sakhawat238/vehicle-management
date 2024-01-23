@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic.base import RedirectView
 from .views import (login_page, logout_view, dashboard, userlist, useradd,
-                    useredit, userdelete)
+                    useredit, userdelete, customerlist)
 
 urlpatterns = [
     path('', RedirectView.as_view(url='login/')),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('users/add', useradd, name="adminuseradd"),
     path('users/edit/<int:id>/', useredit, name="adminuseredit"),
     path('users/delete/<int:id>/', userdelete, name="adminuserdelete"),
+    path('customers/', customerlist, name="customerlist"),
 ]

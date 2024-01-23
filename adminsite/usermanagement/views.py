@@ -133,3 +133,12 @@ def userdelete(request, id):
         messages.error(request, f'User deletion failed')
         return redirect("adminuserlist")
     
+
+@admin_access_required()
+def customerlist(request):
+    users = User.objects.filter(type=USER_TYPE.VISITOR).values('id','first_name', 
+        'email', 'mobile', 'last_login')
+    context = {
+        'users' : users
+    }
+    return render(request, 'admin/user/customerlist.html', context)

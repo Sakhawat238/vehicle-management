@@ -48,7 +48,7 @@
                 <img src="{{v.thumbnail.url}}" alt="v" style="width: 100%; height: 250px;"/>
                 <div class="pt-2 pb-1 fw-bold text-center">{{v.name}}</div>
                 <div class="text-center">Capacity: {{v.capacity}} adults</div>
-                <div class="text-center pt-2 pb-2"><a href="#" class="btn btn-primary">Book Now</a></div>
+                <div class="text-center pt-2 pb-2"><a href="{% url 'vehicledetailspage' id=v.id %}" class="btn btn-primary">Book Now</a></div>
               </div>
             </div>
           {%endfor%}

@@ -1,0 +1,54 @@
+{% extends "admin/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+{% include 'admin/layout/sidebar.html'%}
+<div class="page-wrapper">
+  <div class="right-wrapper">
+    <main class="main">
+        <div class="page_header">Customer Management</div>
+
+        <div class="table-responsive-sm">
+            <table class="table table-striped table-bordered table-sm mt-2 bg-white">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>Last Login</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {%for user in users %}
+                    <tr>
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.mobile}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.last_login}}</td>
+                    </tr>
+                {%empty%}
+                    <tr class="odd"><td colspan="4" style="text-align: center;">No data available in table</td></tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </main>
+  </div>
+</div>
+{%endblock%}
+{%block js%}
+{%endblock%}

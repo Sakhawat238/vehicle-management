@@ -1,0 +1,61 @@
+{% extends "web/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+<link rel="stylesheet" href="{% static 'website/css/splide.min.css' %}">
+<script src="{% static 'website/js/splide.min.js' %}"></script>
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+<div>
+  <div>
+    <main class="main">
+        <div style="padding: 10px 40px;">
+            <div class="row">
+                <div class="col-4">
+                    <section class="splide" aria-label="Splide Basic HTML Example" style="max-height: 500px;">
+                        <div class="splide__track">
+                              <ul class="splide__list">
+                                  <li class="splide__slide">
+                                    <img src="{{V.thumbnail.url}}" alt="t" style="width: 100%; height: 100%;"/>
+                                  </li>
+                                  {%for i in V.vehicleimage_set.all %}
+                                  <li class="splide__slide">
+                                    <img src="{{i.image.url}}" alt="t" style="width: 100%;"/>
+                                  </li>
+                                  {%endfor%}
+                              </ul>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-4">
+                    <h5>{{V.name}}</h5>
+                    <p>{{V.description}}</p>
+                    <p>No of Passengers : {{V.capacity}}</p>
+                    <p>Hourly Rate: {{V.hourly_rate}} Tk</p>
+                    <p>Driver: {{V.driver.name}}</p>
+                    <p>Contact: {{V.driver.contact_info}}</p>
+                    <p>License: {{V.driver.license_info}}</p>
+                </div>
+            </div>
+        </div>
+    </main>
+  </div>
+</div>
+
+{%endblock%}
+{%block js%}
+<script>
+    new Splide( '.splide' ).mount();
+</script>
+{%endblock%}

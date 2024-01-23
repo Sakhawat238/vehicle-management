@@ -113,5 +113,5 @@ if DEBUG:
     mimetypes.add_type("application/javascript", ".js", True)
 
 ADMIN_LOGIN_URL = 'loginpage'
-VISITOR_LOGIN_URL = ''
+VISITOR_LOGIN_URL = 'landingpage'
 AUTH_USER_MODEL = 'usermanagement.User'

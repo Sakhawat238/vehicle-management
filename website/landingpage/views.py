@@ -2,8 +2,22 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import login_required
 from adminsite.vehicleconfiguration.models import Category, Vehicle
 from adminsite.usermanagement.models import User, USER_TYPE
+from vehiclemanagement import settings
+
+
+def visitor_access_required():
+    def wrapper(function):
+        def wrap(request, *args, **kwargs):
+            if not request.user.is_anonymous and request.user.type == USER_TYPE.VISITOR:
+                return function(request, *args, **kwargs)
+            messages.error(request, f'Please login first !')
+            return redirect(settings.VISITOR_LOGIN_URL)
+        return wrap
+    return wrapper
+
 
 def landingpage(request):
     categories = Category.objects.prefetch_related('vehicle_set').order_by('name').all()
@@ -58,3 +72,14 @@ def logoutv(request):
     messages.info(request, f'You have successfully logged out.')
     logout(request)
     return redirect('landingpage')
+
+@visitor_access_required()
+def detailspage(request, id):
+    if request.method == "POST":
+        r = request.POST
+    else:
+        V = Vehicle.objects.get(id=id)
+        context = {
+            'V' : V
+        }
+        return render(request, 'web/details.html', context)
