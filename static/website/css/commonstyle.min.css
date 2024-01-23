@@ -119,19 +119,19 @@ body {
 
 /*SCROLLBAR*/
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
     height: 5px;
 }
 ::-webkit-scrollbar-button {
-    background: #ccc;
+    background: black;
 }
 ::-webkit-scrollbar-thumb {
-    background: #d0d7e0;
+    background: darkgray;
     border-radius: 5px;
 }
 ::-webkit-scrollbar-track {
     /* background: #1f262d; */
-    background: #ccc;
+    background: gray;
 }
 @media (max-width:575.98px){
     .form_container_div{
