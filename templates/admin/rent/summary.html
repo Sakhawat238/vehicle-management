@@ -1,0 +1,55 @@
+{% extends "admin/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+{% include 'admin/layout/sidebar.html'%}
+<div class="page-wrapper">
+  <div class="right-wrapper">
+    <main class="main">
+        <div class="page_header">Income Report</div>
+
+        <h4>Total Income from Rent : {{total.total}} Tk</h4>
+        <div class="table-responsive-sm">
+            <table class="table table-striped table-bordered table-sm mt-2 bg-white">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Vehicle</th>
+                        <th>Income</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                {%for vr in VRs %}
+                    <tr>
+                        <td>{{vr.timestamp|date:'F' }}</td>
+                        <td>{{vr.vehicle.name}}</td>
+                        <td>{{vr.cost}} Tk</td>
+                        
+                    </tr>
+                {%empty%}
+                    <tr class="odd"><td colspan="3" style="text-align: center;">No data available in table</td></tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </main>
+  </div>
+</div>
+{%endblock%}
+{%block js%}
+{%endblock%}

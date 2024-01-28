@@ -1,4 +1,5 @@
 from django.db import models
+from adminsite.usermanagement.models import User
 
 
 class Category(models.Model):
@@ -35,3 +36,16 @@ class VehicleImage(models.Model):
 
     def __str__(self):
         return self.vehicle.name
+    
+
+class VehicleRent(models.Model):
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    start = models.DateTimeField(null=False)
+    end = models.DateTimeField(null=False)
+    cost = models.DecimalField(max_digits=8, decimal_places=2)
+    status = models.CharField(max_length=10)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.customer.username + " -> " + self.vehicle.name

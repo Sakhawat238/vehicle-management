@@ -1,0 +1,59 @@
+{% extends "web/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+<div>
+  <div>
+    <main class="main">
+        <div style="padding: 10px 40px;">
+            <div class="text-center">
+                <h5>Your rent requests</h5>
+            </div>
+            <table class="table table-striped table-bordered table-sm mt-2 bg-white">
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Total Charge</th>
+                        <th>Request Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {%for vr in VRs %}
+                    <tr>
+                        <td>{{vr.vehicle.name}}</td>
+                        <td>{{vr.start}}</td>
+                        <td>{{vr.end}}</td>
+                        <td>{{vr.cost}} Tk</td>
+                        <td>{{vr.timestamp}}</td>
+                        <td>{{vr.status}}</td>
+                    </tr>
+                {%empty%}
+                    <tr class="odd"><td colspan="6" style="text-align: center;">No data available in table</td></tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </main>
+  </div>
+</div>
+
+{%endblock%}
+{%block js%}
+{%endblock%}

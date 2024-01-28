@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.decorators import login_required
-from adminsite.vehicleconfiguration.models import Category, Vehicle
+from adminsite.vehicleconfiguration.models import Category, Vehicle, VehicleRent
 from adminsite.usermanagement.models import User, USER_TYPE
 from vehiclemanagement import settings
-
+from datetime import datetime
+from decimal import Decimal
 
 def visitor_access_required():
     def wrapper(function):
@@ -75,11 +75,39 @@ def logoutv(request):
 
 @visitor_access_required()
 def detailspage(request, id):
+    V = Vehicle.objects.get(id=id)
+    available_after = None
+    if VehicleRent.objects.filter(vehicle_id=id, status="Approved").count() > 0:
+        VR = VehicleRent.objects.filter(vehicle_id=id, status="Approved").order_by('end')[0]
+        available_after = VR.end
     if request.method == "POST":
         r = request.POST
+        start = r.get('start')
+        end = r.get('end')
+        start_d = datetime.strptime(start, '%Y-%m-%d %H:%M')
+        end_d = datetime.strptime(end, '%Y-%m-%d %H:%M')
+        if VehicleRent.objects.filter(vehicle_id=id, status="Approved", start__gte=start_d).exists() or VehicleRent.objects.filter(vehicle_id=id, status="Approved", end__gte=start_d).exists():
+            messages.error(request, f'You can not rent this vehicle at this period.')
+            return redirect('vehicledetailspage', id=id)
+        diff = divmod((end_d - start_d).total_seconds(), 3600)[0]
+        cost = Decimal(diff) * V.hourly_rate
+        VR = VehicleRent(customer_id=request.user.id, vehicle_id=id, start=start_d,
+                        end=end_d, cost=cost, status="Pending")
+        VR.save()
+        messages.success(request, f'We have recived your rent request. Please wait for the approval.')
+        return redirect('landingpage')
     else:
-        V = Vehicle.objects.get(id=id)
         context = {
-            'V' : V
+            'V' : V,
+            'AA' : available_after
         }
         return render(request, 'web/details.html', context)
+    
+
+@visitor_access_required()
+def userrentlist(request):
+    VRs = VehicleRent.objects.filter(customer_id=request.user.id).select_related('vehicle').all()
+    context = {
+        'VRs' : VRs
+    }
+    return render(request, 'web/rentlist.html', context)

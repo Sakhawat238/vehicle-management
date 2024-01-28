@@ -5,7 +5,9 @@
 {%endblock title%}
 {%block style%}
 <link rel="stylesheet" href="{% static 'website/css/splide.min.css' %}">
+<link rel="stylesheet" href="{% static 'website/css/jquery.datetimepicker.min.css' %}">
 <script src="{% static 'website/js/splide.min.js' %}"></script>
+<script src="{% static 'website/js/jquery.datetimepicker.full.min.js' %}"></script>
 {%endblock%}
 {%block content%}
 
@@ -46,6 +48,20 @@
                     <p>Driver: {{V.driver.name}}</p>
                     <p>Contact: {{V.driver.contact_info}}</p>
                     <p>License: {{V.driver.license_info}}</p>
+                    {%if AA %}
+                    <p style="color: green; font-weight: bold; font-size: 18px;">This vehicle will be available after {{AA}}</p>
+                    {%else%}
+                    <p style="color: green; font-weight: bold; font-size: 18px;">This vehicle is available for rent now</p>
+                    {%endif%}
+                    <form method="post" autocomplete="off" style="background: #97a8ff;padding: 10px">
+                      {%csrf_token%}
+                      <p style="color: white;">Please let us know when you will need the vehicle</p>
+                      <label class="me-1">From </label>
+                      <input type="text" id="start" name="start" required class="me-2"/>
+                      <label class="me-1">To </label>
+                      <input type="text" id="end" name="end" required/></br>
+                      <div class="ms-2 mt-3"></div><button class="btn btn-success">Request</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -57,5 +73,7 @@
 {%block js%}
 <script>
     new Splide( '.splide' ).mount();
+    jQuery('#start').datetimepicker({format:'Y-m-d H:i'});
+    jQuery('#end').datetimepicker({format:'Y-m-d H:i'});
 </script>
 {%endblock%}

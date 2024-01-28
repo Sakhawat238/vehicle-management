@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Vehicle, VehicleImage, Category, Driver
+from .models import Vehicle, VehicleImage, Category, Driver, VehicleRent
 from ..utils import admin_access_required, change_file_name, file_upload_server
+from django.db.models import Sum
 
 @admin_access_required()
 def categorylist(request):
@@ -167,3 +168,34 @@ def vehicledelete(request, id):
     Vehicle.objects.filter(id=id).delete()
     messages.success(request, f'Vehicle has been removed successfully')
     return redirect("vehiclelist")
+
+
+@admin_access_required()
+def vehiclerentlist(request):
+    VRs = VehicleRent.objects.select_related('customer','vehicle').all()
+    context = {
+        "VRs" : VRs
+    }
+    return render(request, 'admin/rent/list.html', context)
+
+@admin_access_required()
+def vehiclerentapprove(request, id):
+    VehicleRent.objects.filter(id=id).update(status="Approved")
+    messages.success(request, f'Vehicle rent request has been approved')
+    return redirect('vehiclerentlist')
+
+@admin_access_required()
+def vehiclerentreject(request, id):
+    VehicleRent.objects.filter(id=id).update(status="Rejected")
+    messages.success(request, f'Vehicle rent request has been rejected')
+    return redirect('vehiclerentlist')
+
+@admin_access_required()
+def income(request):
+    VRs = VehicleRent.objects.all()
+    total = VehicleRent.objects.aggregate(total=Sum('cost'))
+    context = {
+        'VRs' : VRs,
+        'total': total
+    }
+    return render(request, 'admin/rent/summary.html', context)

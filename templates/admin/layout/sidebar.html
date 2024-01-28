@@ -10,15 +10,15 @@
           </a> -->
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="b">
+          <a class="sidebar-link" href="{% url 'vehiclerentlist' %}">
             <span class="hide-menu">Requisition Process</span>
           </a>
         </li>
-        <li class="sidebar-item">
+        <!-- <li class="sidebar-item">
           <a class="sidebar-link" href="c">
             <span class="hide-menu">Availability Check</span>
           </a>
-        </li>
+        </li> -->
         <li class="s-sidebar-item-heading">Settings</li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="{% url 'adminuserlist' %}">
@@ -42,8 +42,8 @@
         </li>
         <li class="s-sidebar-item-heading">Report</li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="ee">
-            <span class="hide-menu">Monthly Income</span>
+          <a class="sidebar-link" href="{% url 'income' %}">
+            <span class="hide-menu">Income Report</span>
           </a>
         </li>
       </ul>

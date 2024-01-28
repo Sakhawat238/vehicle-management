@@ -1,0 +1,71 @@
+{% extends "admin/layout/base.html" %}
+{%load static%}
+{%block title%}
+<title>Vehicle Management</title>
+{%endblock title%}
+{%block style%}
+
+{%endblock%}
+{%block content%}
+
+{%if messages%}
+  {%for message in messages%}
+  <script type="text/javascript">
+      toastr["{{message.tags}}"]("{{message}}", "{{message.tags|upper}}");
+  </script>
+  {%endfor%}
+{%endif%}
+
+{% include 'admin/layout/sidebar.html'%}
+<div class="page-wrapper">
+  <div class="right-wrapper">
+    <main class="main">
+        <div class="page_header">Vehicle Rents</div>
+
+        <div class="table-responsive-sm">
+            <table class="table table-striped table-bordered table-sm mt-2 bg-white">
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Customer</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Total Charge</th>
+                        <th>Request Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {%for vr in VRs %}
+                    <tr>
+                        <td>{{vr.vehicle.name}}</td>
+                        <td>{{vr.customer.username}}</td>
+                        <td>{{vr.start}}</td>
+                        <td>{{vr.end}}</td>
+                        <td>{{vr.cost}} Tk</td>
+                        <td>{{vr.timestamp}}</td>
+                        <td>{{vr.status}}</td>
+                        <td style="display: flex; padding-bottom: 5px;">
+                            {% if vr.status == "Pending" %}
+                            <a class="btn btn-sm btn-warning me-1" href="{%url 'vehiclerentapprove' vr.id %}">
+                                <i class="far fa-edit"></i> Approve
+                            </a>
+                            <a class="btn btn-sm btn-danger me-1" href="{%url 'vehiclerentreject' vr.id %}">
+                                <i class="fas fa-trash"></i> Reject
+                            </a>
+                            {%endif%}
+                        </td>
+                    </tr>
+                {%empty%}
+                    <tr class="odd"><td colspan="7" style="text-align: center;">No data available in table</td></tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </main>
+  </div>
+</div>
+{%endblock%}
+{%block js%}
+{%endblock%}
