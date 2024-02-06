@@ -76,6 +76,9 @@ def logoutv(request):
 @visitor_access_required()
 def detailspage(request, id):
     V = Vehicle.objects.get(id=id)
+    desc_list = []
+    if V.description is not None and V.description != "":
+        desc_list = V.description.split(",")
     available_after = None
     if VehicleRent.objects.filter(vehicle_id=id, status="Approved").count() > 0:
         VR = VehicleRent.objects.filter(vehicle_id=id, status="Approved").order_by('end')[0]
@@ -99,7 +102,8 @@ def detailspage(request, id):
     else:
         context = {
             'V' : V,
-            'AA' : available_after
+            'AA' : available_after,
+            'DL': desc_list
         }
         return render(request, 'web/details.html', context)
     

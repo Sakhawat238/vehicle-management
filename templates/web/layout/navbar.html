@@ -19,19 +19,19 @@
       </div>
     </div>
   </div>
-  <div style="display: flex;justify-content: center;gap: 20px;background: rgba(234, 237, 240, 0.8);align-items: center;">
+  <div style="display: flex;justify-content: center;gap: 20px;background: linear-gradient(90deg, rgba(0,25,36,1) 0%, rgba(9,53,121,1) 35%, rgba(192,0,255,1) 100%);;align-items: center;">
     <div style="padding: 10px;background: #ffdf00;padding: 10px;">
       <a href="{% url 'landingpage' %}" style="color: black;">Home</a>
     </div>
     <div>
-      <a href="{% url 'aboutpage' %}" style="color: black;">Who we are</a>
+      <a href="{% url 'aboutpage' %}" style="color: white;">Who we are</a>
     </div>
-    <div>Rent a Vehicle</div>
-    <div>Services</div>
+    <div style="color: white;">Rent a Vehicle</div>
+    <div style="color: white;">Services</div>
     <div>
-      <a href="{% url 'termspage' %}" style="color: black;">Terms & Conditions</a>
+      <a href="{% url 'termspage' %}" style="color: white;">Terms & Conditions</a>
     </div>
-    <div>Contact</div>
+    <div style="color: white;">Contact</div>
     {% profile_load request %}
   </div>
 </header>
